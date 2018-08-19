@@ -11,14 +11,16 @@ public class DiamondSquareTerrain : MonoBehaviour {
     // Size of terrain
     private int size;
 
-    // maximum array size
+    // Maximum array size
     private int maxSize;
 
     // 2D terrain array
     private float[, ] heights;
 
-    // Variable determining smoothness of heights
-    private float smoothness = 0.8f;
+    // Variable determining roughness of heights
+    private float roughness = 0.8f;
+
+    private int seed = 42;
 
     public void Start () {
 
@@ -28,9 +30,6 @@ public class DiamondSquareTerrain : MonoBehaviour {
         // Get terrain size
         size = terrainData.heightmapWidth;
         maxSize = size - 1;
-
-        // Initialise random seed
-        Random.InitState ((int) Random.value);
 
         // Initialise heights
         Initialise ();
@@ -73,7 +72,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
             SqaureStep (stepSize, range);
 
             // Lower the random value range
-            range -= range * 0.5f * smoothness;
+            range -= range * 0.5f * roughness;
 
             // Half step size
             stepSize /= 2;
