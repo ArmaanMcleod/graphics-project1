@@ -20,25 +20,23 @@ public class DiamondSquareTerrain : MonoBehaviour {
     // Variable determining roughness of heights
     private float roughness = 0.8f;
 
-    private int seed = 42;
-
     public void Start () {
 
-        // Initialise terrain data
+        // Get terrain data
         terrainData = this.transform.GetComponent<TerrainCollider> ().terrainData;
 
         // Get terrain size
         size = terrainData.heightmapWidth;
         maxSize = size - 1;
 
-        // Initialise heights
-        Initialise ();
+        // Initialise terrain
+        InitialiseTerrain ();
 
         // Excecute Diamond Square
         DiamondSquare ();
     }
 
-    public void Initialise () {
+    public void InitialiseTerrain () {
         heights = new float[size, size];
 
         // Bottom left
