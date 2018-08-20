@@ -5,16 +5,29 @@ using UnityEngine;
 public class CameraCollision : MonoBehaviour {
 
 	// Use this for initialization
-	void Update () {
-		// Stops the rigid body from rebounding during a collision
-		this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+	private Rigidbody rb;
+
+
+	void Start () {
+		rb = this.gameObject.AddComponent<Rigidbody>();
+		rb.useGravity = false;
+		rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+
+		SphereCollider collider = this.gameObject.AddComponent<SphereCollider>();
+		collider.radius = 3; // the larger the radius the less likely it will go through walls at high speed
+	}
+	
+	void FixedUpdate () {
+		// Stops the rigid body from rebounding after a collision
+		rb.velocity = Vector3.zero;
 
 		
 	}
 
 	void OnCollisionEnter(Collision c){
-		Debug.Log(this.gameObject.GetComponent<Rigidbody>().velocity);
-		this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		Debug.Log(rb.velocity);
+		rb.velocity = Vector3.zero;
 	
 	}
 }
