@@ -24,10 +24,4 @@ public class CameraCollision : MonoBehaviour {
 
 		
 	}
-
-	void OnCollisionEnter(Collision c){
-		Debug.Log(rb.velocity);
-		rb.velocity = Vector3.zero;
-	
-	}
 }
