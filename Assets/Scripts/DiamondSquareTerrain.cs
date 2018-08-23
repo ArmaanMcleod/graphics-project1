@@ -28,7 +28,6 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// Used for initialization.
     /// </summary>
     public void Start () {
-
         // Get terrain data
         // Also attach a TerrainCollider for collision detection
         terrainData = this.transform.GetComponent<TerrainCollider> ().terrainData;

@@ -36,7 +36,6 @@ public class CameraControls : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     /// <summary>
     /// This is called once per frame to update camera movements.
     /// </summary>
@@ -97,7 +96,7 @@ public class CameraControls : MonoBehaviour {
     /// Returns the relative forward vector scaled by the movement speed
     /// and time delta.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Relative forward vector</returns>
     private Vector3 RelativeForward () {
         return transform.forward * moveSpeed * Time.deltaTime;
     }
@@ -106,7 +105,7 @@ public class CameraControls : MonoBehaviour {
     /// Returns the relative right vector scaled by the movement speed 
     /// and time delta.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Relative right vector</returns>
     private Vector3 RelativeRight () {
         return transform.right * moveSpeed * Time.deltaTime;
     }
