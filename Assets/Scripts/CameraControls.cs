@@ -119,7 +119,7 @@ public class CameraControls : MonoBehaviour {
         DiamondSquareTerrain terrain = terrainObject.GetComponent<DiamondSquareTerrain> ();
 
         // Copy current position
-        Vector3 currentPostion = transform.localPosition;
+        Vector3 currentPostion = transform.position;
 
         // Sides closest to origin
         if (currentPostion.x < reboundDistance) {

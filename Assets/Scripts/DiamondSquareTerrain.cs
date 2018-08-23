@@ -33,7 +33,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
         terrainData = this.transform.GetComponent<TerrainCollider> ().terrainData;
 
         // Position terrain at origin (0, 0, 0)
-        this.transform.localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
+        this.transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
 
         // Get terrain size
         size = terrainData.heightmapWidth;
