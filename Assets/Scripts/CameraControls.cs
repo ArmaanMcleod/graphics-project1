@@ -15,6 +15,8 @@ public class CameraControls : MonoBehaviour {
 
     private Vector2 currentRotation;
 
+    public int reboundDistance;
+
     public float sensitivity = 1;
 
     public float moveSpeed = 1;
@@ -29,6 +31,7 @@ public class CameraControls : MonoBehaviour {
     void Update() {
         Rotate();
         Move();
+        CheckBounds();
     }
 
     // Accept user rotation input
@@ -46,30 +49,61 @@ public class CameraControls : MonoBehaviour {
     private void Move() {
         // Move the camera
         if (Input.GetKey(KeyCode.W)) {
-            transform.position += relativeForward();
+            transform.position += RelativeForward();
         }
 
         if (Input.GetKey(KeyCode.S)) {
-            transform.position -= relativeForward();
+            transform.position -= RelativeForward();
         }
 
         if (Input.GetKey(KeyCode.A)) {
-            transform.position -= relativeRight();
+            transform.position -= RelativeRight();
         }
 
         if (Input.GetKey(KeyCode.D)) {
-            transform.position += relativeRight();
+            transform.position += RelativeRight();
         }
 
     }
 
     // Returns the relative forward vector scaled by the movement speed and time delta
-    private Vector3 relativeForward() {
+    private Vector3 RelativeForward() {
         return transform.forward * moveSpeed * Time.deltaTime;
     }
 
     // Returns the relative right vector scaled by the movement speed and time delta
-    private Vector3 relativeRight() {
+    private Vector3 RelativeRight() {
         return transform.right * moveSpeed * Time.deltaTime;
     }
+
+    private void CheckBounds() {
+        // Get terrain object
+        GameObject terrainObject = GameObject.Find("Terrain");
+        DiamondSquareTerrain terrain = terrainObject.GetComponent<DiamondSquareTerrain>();
+
+        // Copy current position
+        Vector3 currentPostion = transform.localPosition;
+
+        // Sides closest to origin
+        if (currentPostion.x < reboundDistance) {
+            currentPostion.x = reboundDistance;
+        }
+
+        if (currentPostion.z < reboundDistance) {
+            currentPostion.z = reboundDistance;
+        }
+
+        // Sides furthest from origin
+        if (currentPostion.x > terrain.getSize() - reboundDistance) {
+            currentPostion.x = terrain.getSize() - reboundDistance;
+        }
+
+        if (currentPostion.z > terrain.getSize() - reboundDistance) {
+            currentPostion.z = terrain.getSize() - reboundDistance;
+        }
+
+        // Update position with new position
+        transform.localPosition = currentPostion;
+    }
+
 }
