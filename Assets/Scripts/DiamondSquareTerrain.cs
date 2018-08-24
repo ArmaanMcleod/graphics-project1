@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// When attached to a Terrain GameObject, it can be used to randomise heights
+/// using the Diamond-Square algorithm taught in lectures.
+/// </summary>
 [RequireComponent(typeof(TerrainCollider))]
 public class DiamondSquareTerrain : MonoBehaviour {
 
@@ -14,32 +18,37 @@ public class DiamondSquareTerrain : MonoBehaviour {
     // Maximum array size
     private int maxSize;
 
-    // 2D terrain array
+    // 2D terrain array storing heights
     private float[,] heights;
 
     // Variable determining roughness of heights
-    private float roughness = 0.8f;
+    public float roughness = 0.8f;
 
-    // Use this for initialization
+    /// <summary>
+    /// Used for initialization.
+    /// </summary>
     public void Start() {
-
         // Get terrain data
+        // Also attach a TerrainCollider for collision detection
         terrainData = this.transform.GetComponent<TerrainCollider>().terrainData;
 
         // Position terrain at origin (0, 0, 0)
-        this.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
 
-        // Get terrain sizew
+        // Get terrain size
         size = terrainData.heightmapWidth;
         maxSize = size - 1;
 
         // Initialise terrain
         InitialiseTerrain();
 
-        // Excecute Diamond Square
+        // Excecute Diamond Square algorithm
         DiamondSquare();
     }
 
+    /// <summary>
+    /// Initialises terrain corners with random values.
+    /// </summary>
     private void InitialiseTerrain() {
         heights = new float[size, size];
 
@@ -59,12 +68,16 @@ public class DiamondSquareTerrain : MonoBehaviour {
         terrainData.SetHeights(0, 0, heights);
     }
 
+    /// <summary>
+    /// Heart of Diamond Square algorithm. 
+    /// </summary>
     private void DiamondSquare() {
         int stepSize = size - 1;
         float range = 0.5f;
 
         heights = new float[size, size];
 
+        // Keep executing square and diamond steps until terrain is finalised
         while (stepSize > 1) {
 
             // Diamond step
@@ -84,6 +97,12 @@ public class DiamondSquareTerrain : MonoBehaviour {
         terrainData.SetHeights(0, 0, heights);
     }
 
+    /// <summary>
+    /// Perform Diamond step of Diamond Square algorithm. Updates heights array
+    /// with calculated averages.
+    /// </summary>
+    /// <param name="stepSize"></param>
+    /// <param name="range"></param>
     private void DiamondStep(int stepSize, float range) {
         int midPoint = stepSize / 2;
 
@@ -109,6 +128,12 @@ public class DiamondSquareTerrain : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Perform Diamond step of Diamond Square algorithm. Updates heights array
+    /// with calculated averages
+    /// </summary>
+    /// <param name="stepSize"></param>
+    /// <param name="range"></param>
     private void SqaureStep(int stepSize, float range) {
         int midPoint = stepSize / 2;
 
@@ -143,6 +168,10 @@ public class DiamondSquareTerrain : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Getter for size of terrain map.
+    /// </summary>
+    /// <returns></returns>
     public float getSize() {
         return size;
     }
