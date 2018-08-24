@@ -31,7 +31,7 @@ public class CameraControls : MonoBehaviour {
     /// <summary>
     /// Used for initialisation of camera.
     /// </summary>
-    void Start () {
+    void Start() {
         // This locks the cursor to the centre of the screen
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -39,55 +39,55 @@ public class CameraControls : MonoBehaviour {
     /// <summary>
     /// This is called once per frame to update camera movements.
     /// </summary>
-    void Update () {
+    void Update() {
 
         // Rotation
-        Rotate ();
+        Rotate();
 
         // Movement
-        Move ();
+        Move();
 
         // Bounds checking
-        CheckBounds ();
+        CheckBounds();
     }
 
     /// <summary>
     /// Handles user rotation input.
     /// </summary>
-    private void Rotate () {
+    private void Rotate() {
         // Control yaw
-        currentRotation.x += Input.GetAxis ("Mouse X") * sensitivity;
-        currentRotation.x = Mathf.Repeat (currentRotation.x, 360);
+        currentRotation.x += Input.GetAxis("Mouse X") * sensitivity;
+        currentRotation.x = Mathf.Repeat(currentRotation.x, 360);
 
         // Control pitch
-        currentRotation.y -= Input.GetAxis ("Mouse Y") * sensitivity;
-        currentRotation.y = Mathf.Clamp (currentRotation.y, -80f, 80f);
-        transform.rotation = Quaternion.Euler (currentRotation.y, currentRotation.x, 0);
+        currentRotation.y -= Input.GetAxis("Mouse Y") * sensitivity;
+        currentRotation.y = Mathf.Clamp(currentRotation.y, -80f, 80f);
+        transform.rotation = Quaternion.Euler(currentRotation.y, currentRotation.x, 0);
     }
 
     /// <summary>
     /// Handles user movement input.
     /// </summary>
-    private void Move () {
+    private void Move() {
 
         // Up
-        if (Input.GetKey (KeyCode.W)) {
-            transform.position += RelativeForward ();
+        if (Input.GetKey(KeyCode.W)) {
+            transform.position += RelativeForward();
         }
 
         // Down
-        if (Input.GetKey (KeyCode.S)) {
-            transform.position -= RelativeForward ();
+        if (Input.GetKey(KeyCode.S)) {
+            transform.position -= RelativeForward();
         }
 
         // Left
-        if (Input.GetKey (KeyCode.A)) {
-            transform.position -= RelativeRight ();
+        if (Input.GetKey(KeyCode.A)) {
+            transform.position -= RelativeRight();
         }
 
         // Right
-        if (Input.GetKey (KeyCode.D)) {
-            transform.position += RelativeRight ();
+        if (Input.GetKey(KeyCode.D)) {
+            transform.position += RelativeRight();
         }
 
     }
@@ -97,7 +97,7 @@ public class CameraControls : MonoBehaviour {
     /// and time delta.
     /// </summary>
     /// <returns>Relative forward vector</returns>
-    private Vector3 RelativeForward () {
+    private Vector3 RelativeForward() {
         return transform.forward * moveSpeed * Time.deltaTime;
     }
 
@@ -106,17 +106,17 @@ public class CameraControls : MonoBehaviour {
     /// and time delta.
     /// </summary>
     /// <returns>Relative right vector</returns>
-    private Vector3 RelativeRight () {
+    private Vector3 RelativeRight() {
         return transform.right * moveSpeed * Time.deltaTime;
     }
 
     /// <summary>
     /// Ensures camera stays within bounds of terrain.
     /// </summary>
-    private void CheckBounds () {
+    private void CheckBounds() {
         // Get terrain object
-        GameObject terrainObject = GameObject.Find ("Terrain");
-        DiamondSquareTerrain terrain = terrainObject.GetComponent<DiamondSquareTerrain> ();
+        GameObject terrainObject = GameObject.Find("Terrain");
+        DiamondSquareTerrain terrain = terrainObject.GetComponent<DiamondSquareTerrain>();
 
         // Copy current position
         Vector3 currentPostion = transform.position;
@@ -131,12 +131,12 @@ public class CameraControls : MonoBehaviour {
         }
 
         // Sides furthest from origin
-        if (currentPostion.x > terrain.getSize () - reboundDistance) {
-            currentPostion.x = terrain.getSize () - reboundDistance;
+        if (currentPostion.x > terrain.getSize() - reboundDistance) {
+            currentPostion.x = terrain.getSize() - reboundDistance;
         }
 
-        if (currentPostion.z > terrain.getSize () - reboundDistance) {
-            currentPostion.z = terrain.getSize () - reboundDistance;
+        if (currentPostion.z > terrain.getSize() - reboundDistance) {
+            currentPostion.z = terrain.getSize() - reboundDistance;
         }
 
         // Update position with new position

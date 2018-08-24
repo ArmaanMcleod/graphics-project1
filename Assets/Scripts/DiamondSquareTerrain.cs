@@ -6,7 +6,7 @@ using UnityEngine;
 /// When attached to a Terrain GameObject, it can be used to randomise heights
 /// using the Diamond-Square algorithm taught in lectures.
 /// </summary>
-[RequireComponent (typeof (TerrainCollider))]
+[RequireComponent(typeof(TerrainCollider))]
 public class DiamondSquareTerrain : MonoBehaviour {
 
     // Container for heights of a terrain
@@ -19,7 +19,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private int maxSize;
 
     // 2D terrain array storing heights
-    private float[, ] heights;
+    private float[,] heights;
 
     // Variable determining roughness of heights
     public float roughness = 0.8f;
@@ -27,29 +27,29 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// <summary>
     /// Used for initialization.
     /// </summary>
-    public void Start () {
+    public void Start() {
         // Get terrain data
         // Also attach a TerrainCollider for collision detection
-        terrainData = this.transform.GetComponent<TerrainCollider> ().terrainData;
+        terrainData = this.transform.GetComponent<TerrainCollider>().terrainData;
 
         // Position terrain at origin (0, 0, 0)
-        this.transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
+        this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
 
         // Get terrain size
         size = terrainData.heightmapWidth;
         maxSize = size - 1;
 
         // Initialise terrain
-        InitialiseTerrain ();
+        InitialiseTerrain();
 
         // Excecute Diamond Square algorithm
-        DiamondSquare ();
+        DiamondSquare();
     }
 
     /// <summary>
     /// Initialises terrain corners with random values.
     /// </summary>
-    private void InitialiseTerrain () {
+    private void InitialiseTerrain() {
         heights = new float[size, size];
 
         // Bottom left
@@ -65,13 +65,13 @@ public class DiamondSquareTerrain : MonoBehaviour {
         heights[maxSize, maxSize] = Random.value;
 
         // Update terrain heights
-        terrainData.SetHeights (0, 0, heights);
+        terrainData.SetHeights(0, 0, heights);
     }
 
     /// <summary>
     /// Heart of Diamond Square algorithm. 
     /// </summary>
-    private void DiamondSquare () {
+    private void DiamondSquare() {
         int stepSize = size - 1;
         float range = 0.5f;
 
@@ -81,10 +81,10 @@ public class DiamondSquareTerrain : MonoBehaviour {
         while (stepSize > 1) {
 
             // Diamond step
-            DiamondStep (stepSize, range);
+            DiamondStep(stepSize, range);
 
             // Square step
-            SqaureStep (stepSize, range);
+            SqaureStep(stepSize, range);
 
             // Lower the random value range
             range -= range * 0.5f * roughness;
@@ -94,7 +94,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
         }
 
         // Update terrain heights
-        terrainData.SetHeights (0, 0, heights);
+        terrainData.SetHeights(0, 0, heights);
     }
 
     /// <summary>
@@ -103,7 +103,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// </summary>
     /// <param name="stepSize"></param>
     /// <param name="range"></param>
-    private void DiamondStep (int stepSize, float range) {
+    private void DiamondStep(int stepSize, float range) {
         int midPoint = stepSize / 2;
 
         // Traverse x, y point heights
@@ -134,7 +134,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// </summary>
     /// <param name="stepSize"></param>
     /// <param name="range"></param>
-    private void SqaureStep (int stepSize, float range) {
+    private void SqaureStep(int stepSize, float range) {
         int midPoint = stepSize / 2;
 
         // Traverse x, y points
@@ -172,7 +172,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// Getter for size of terrain map.
     /// </summary>
     /// <returns></returns>
-    public float getSize () {
+    public float getSize() {
         return size;
     }
 
