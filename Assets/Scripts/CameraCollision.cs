@@ -16,14 +16,14 @@ public class CameraCollision : MonoBehaviour {
     /// <summary>
     /// Used for initialisation.
     /// </summary>
-    void Start() {
+    void Start () {
         // Create rigid body
-        rb = this.gameObject.AddComponent<Rigidbody>();
+        rb = this.gameObject.AddComponent<Rigidbody> ();
         rb.useGravity = false;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
         // Create sphere collider for collision detection
-        SphereCollider collider = this.gameObject.AddComponent<SphereCollider>();
+        SphereCollider collider = this.gameObject.AddComponent<SphereCollider> ();
 
         // The larger the radius the less likely it will go through walls at high speed
         collider.radius = radius;
@@ -33,7 +33,7 @@ public class CameraCollision : MonoBehaviour {
     /// Called every fixed framerate frame. Adds reaction when collision occurs
     /// between the camera and terrain. 
     /// </summary>
-    void FixedUpdate() {
+    void FixedUpdate () {
 
         // Stops the rigid body from rebounding after a collision
         rb.velocity = Vector3.zero;
