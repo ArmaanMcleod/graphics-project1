@@ -34,7 +34,8 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private static int SNOW = 3;
 
     // Heights for textures
-    private float dirtgrassHeight;
+    private float dirtHeight;
+    private float grassHeight;
     private float rockHeight;
     private float snowHeight;
 
@@ -64,12 +65,12 @@ public class DiamondSquareTerrain : MonoBehaviour {
 
         // Calculate maximum height in terrain
         maxHeight = terrainData.bounds.max.y;
-        Debug.Log (maxHeight);
 
         // Intialise landscape heights
-        dirtgrassHeight = (float) (0.1 * maxHeight);
-        rockHeight = (float) (0.2 * maxHeight);
-        snowHeight = (float) (0.3 * maxHeight);
+        dirtHeight = (float) 0.1 * maxHeight;
+        grassHeight = (float) 0.25 * maxHeight;
+        rockHeight = (float) 0.5 * maxHeight;
+        snowHeight = (float) 0.75 * maxHeight;
 
         // Add textures to terrain
         AddTextures ();
@@ -210,21 +211,14 @@ public class DiamondSquareTerrain : MonoBehaviour {
             for (int x = 0; x < terrainData.alphamapWidth; x++) {
                 float height = terrainData.GetHeight (y, x);
 
-                // Snow
-                if (height >= snowHeight) {
-                    splatmapData[x, y, SNOW] = 1.0f;
-
-                    // Rock
-                } else if (height < snowHeight && height > dirtgrassHeight) {
-                    splatmapData[x, y, ROCK] = 1.0f;
-
-                    // Grass
-                } else if (height <= dirtgrassHeight && height > 0.0f) {
-                    splatmapData[x, y, GRASS] = 1.0f;
-
-                    // Dirt
-                } else {
+                if (height <= dirtHeight) {
                     splatmapData[x, y, DIRT] = 1.0f;
+                } else if (height <= grassHeight && height > dirtHeight) {
+                    splatmapData[x, y, GRASS] = 1.0f;
+                } else if (height <= rockHeight && height > grassHeight) {
+                    splatmapData[x, y, ROCK] = 1.0f;
+                } else {
+                    splatmapData[x, y, SNOW] = 1.0f;
                 }
 
             }
