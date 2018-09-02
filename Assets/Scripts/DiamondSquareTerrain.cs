@@ -35,11 +35,9 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private static int WATER = 4;
 
     // Heights for textures
-    private float waterHeight;
     private float dirtHeight;
     private float grassHeight;
     private float rockHeight;
-    private float snowHeight;
 
     /// <summary>
     /// Used for initialization.
@@ -69,11 +67,9 @@ public class DiamondSquareTerrain : MonoBehaviour {
         maxHeight = terrainData.bounds.max.y;
 
         // Intialise landscape heights
-        waterHeight = 0.0f;
         dirtHeight = (float) 0.1 * maxHeight;
         grassHeight = (float) 0.25 * maxHeight;
         rockHeight = (float) 0.5 * maxHeight;
-        snowHeight = (float) 0.75 * maxHeight;
 
         // Add textures to terrain
         AddTextures ();
