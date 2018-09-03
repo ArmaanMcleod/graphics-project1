@@ -20,7 +20,11 @@ public class WaterPlane : MonoBehaviour {
     private float currentTime = 0.0f;
 
     // Threshold which indicates when new waves should be generated
-    public float timeStep = 0.3f;
+    public float timeStep = 0.2f;
+
+    // Start and end thresholds for mesh heights
+    public float start = -0.1f;
+    public float end = 1.0f;
 
     // Use this for initialization
     private void Start () {
@@ -69,7 +73,8 @@ public class WaterPlane : MonoBehaviour {
         // Assign random heights to vertices
         for (int i = 0; i < vertices.Length; i++) {
             Vector3 vertex = heights[i];
-            vertex.y += Random.Range (0.1f, 1.0f);
+
+            vertex.y += Random.Range (start, end);
             vertices[i] = vertex;
         }
 
