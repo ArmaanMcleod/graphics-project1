@@ -393,7 +393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f412b8ecdaefffe418852264dd6398e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 20
+  mesh: {fileID: 0}
+  mapScale: 51
+  timeStep: 0.3
 --- !u!64 &2114295804
 MeshCollider:
   m_ObjectHideFlags: 0
