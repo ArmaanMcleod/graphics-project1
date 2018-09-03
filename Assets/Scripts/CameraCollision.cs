@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// This class is used to detect collison detection of the camera.
 /// </summary>
+[RequireComponent (typeof (SphereCollider))]
 public class CameraCollision : MonoBehaviour {
 
     // Rigid body

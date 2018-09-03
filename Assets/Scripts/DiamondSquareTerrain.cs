@@ -7,6 +7,8 @@ using UnityEngine;
 /// When attached to a Terrain GameObject, it can be used to randomise heights
 /// using the Diamond-Square algorithm taught in lectures.
 /// </summary>
+[RequireComponent (typeof (TerrainData))]
+[RequireComponent (typeof (Terrain))]
 public class DiamondSquareTerrain : MonoBehaviour {
 
     // Container for heights of a terrain
@@ -42,7 +44,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// <summary>
     /// Used for initialization.
     /// </summary>
-    public void Start () {
+    private void Start () {
         // Get active terrain
         Terrain terrain = Terrain.activeTerrain;
 

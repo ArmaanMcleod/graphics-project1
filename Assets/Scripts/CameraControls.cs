@@ -14,6 +14,7 @@ using UnityEngine;
 /// 
 /// * Mouse controls pitch and yaw.
 /// </summary>
+[RequireComponent (typeof (DiamondSquareTerrain))]
 public class CameraControls : MonoBehaviour {
 
     // Current rotation of camera
