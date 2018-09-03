@@ -34,7 +34,6 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private static int GRASS = 1;
     private static int ROCK = 2;
     private static int SNOW = 3;
-    private static int WATER = 4;
 
     // Heights for textures
     private float dirtHeight;

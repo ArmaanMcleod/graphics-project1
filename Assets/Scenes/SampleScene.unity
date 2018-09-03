@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 2114295805}
   - component: {fileID: 2114295804}
   - component: {fileID: 2114295803}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,6 +396,8 @@ MonoBehaviour:
   mesh: {fileID: 0}
   mapScale: 51
   timeStep: 0.3
+  start: -0.1
+  end: 1
 --- !u!64 &2114295804
 MeshCollider:
   m_ObjectHideFlags: 0
