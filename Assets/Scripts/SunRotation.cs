@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class SunRotation : MonoBehaviour {
 
+    // Speed of sun
+    public float speed = 10.0f;
+
+    public float scale = 20.0f;
+
     // Use this for initialization
     void Start () {
+
+        // Multiple x, y, z scales ot make object bigger
+        float xScale = this.transform.localScale.x * scale;
+        float yScale = this.transform.localScale.y * scale;
+        float zScale = this.transform.localScale.z * scale;
+
+        this.transform.localScale = new Vector3 (xScale, yScale, zScale);
 
     }
 
@@ -15,7 +27,13 @@ public class SunRotation : MonoBehaviour {
         // Get size of terrain
         GameObject terrainObject = GameObject.Find ("Terrain");
         DiamondSquareTerrain terrain = terrainObject.GetComponent<DiamondSquareTerrain> ();
-        float terrainSize = terrain.GetSize ();
+        float terrainSize = terrain.GetSize () / 2;
+
+        // Centre position of map
+        Vector3 position = new Vector3 (terrainSize * 2, 0, terrainSize * 2);
+
+        // Rotation around centre
+        this.transform.RotateAround (position, Vector3.forward, speed * Time.deltaTime);
 
     }
 }
