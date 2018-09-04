@@ -14,6 +14,7 @@ using UnityEngine;
 /// 
 /// * Mouse controls pitch and yaw.
 /// </summary>
+[RequireComponent(typeof(DiamondSquareTerrain))]
 public class CameraControls : MonoBehaviour {
 
     // Current rotation of camera
@@ -34,6 +35,7 @@ public class CameraControls : MonoBehaviour {
     void Start() {
         // This locks the cursor to the centre of the screen
         Cursor.lockState = CursorLockMode.Locked;
+        transform.position += new Vector3(0, 100f, 0);
     }
 
     /// <summary>
@@ -131,12 +133,12 @@ public class CameraControls : MonoBehaviour {
         }
 
         // Sides furthest from origin
-        if (currentPostion.x > terrain.getSize() - reboundDistance) {
-            currentPostion.x = terrain.getSize() - reboundDistance;
+        if (currentPostion.x > terrain.GetSize() - reboundDistance) {
+            currentPostion.x = terrain.GetSize() - reboundDistance;
         }
 
-        if (currentPostion.z > terrain.getSize() - reboundDistance) {
-            currentPostion.z = terrain.getSize() - reboundDistance;
+        if (currentPostion.z > terrain.GetSize() - reboundDistance) {
+            currentPostion.z = terrain.GetSize() - reboundDistance;
         }
 
         // Update position with new position

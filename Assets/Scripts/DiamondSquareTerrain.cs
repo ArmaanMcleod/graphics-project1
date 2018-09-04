@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
 /// When attached to a Terrain GameObject, it can be used to randomise heights
 /// using the Diamond-Square algorithm taught in lectures.
 /// </summary>
-[RequireComponent(typeof(TerrainCollider))]
+[RequireComponent (typeof (TerrainData))]
+[RequireComponent (typeof (Terrain))]
 public class DiamondSquareTerrain : MonoBehaviour {
 
     // Container for heights of a terrain
@@ -19,37 +21,65 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private int maxSize;
 
     // 2D terrain array storing heights
-    private float[,] heights;
+    private float[, ] heights;
 
     // Variable determining roughness of heights
-    public float roughness = 0.8f;
+    public float roughness = 0.6f;
+
+    // Maximum height in terrain
+    private float maxHeight;
+
+    // Texture indices
+    private static int DIRT = 0;
+    private static int GRASS = 1;
+    private static int ROCK = 2;
+    private static int SNOW = 3;
+
+    // Heights for textures
+    private float dirtHeight;
+    private float grassHeight;
+    private float rockHeight;
 
     /// <summary>
     /// Used for initialization.
     /// </summary>
-    public void Start() {
+    private void Start () {
+        // Get active terrain
+        Terrain terrain = Terrain.activeTerrain;
+
         // Get terrain data
         // Also attach a TerrainCollider for collision detection
-        terrainData = this.transform.GetComponent<TerrainCollider>().terrainData;
+        terrainData = terrain.terrainData;
 
         // Position terrain at origin (0, 0, 0)
-        this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        this.transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
 
         // Get terrain size
         size = terrainData.heightmapWidth;
         maxSize = size - 1;
 
         // Initialise terrain
-        InitialiseTerrain();
+        InitialiseTerrain ();
 
         // Excecute Diamond Square algorithm
-        DiamondSquare();
+        DiamondSquare ();
+
+        // Calculate maximum height in terrain
+        maxHeight = terrainData.bounds.max.y;
+
+        // Intialise landscape heights
+        dirtHeight = (float) 0.1 * maxHeight;
+        grassHeight = (float) 0.25 * maxHeight;
+        rockHeight = (float) 0.5 * maxHeight;
+
+        // Add textures to terrain
+        AddTextures ();
     }
 
     /// <summary>
     /// Initialises terrain corners with random values.
     /// </summary>
-    private void InitialiseTerrain() {
+    private void InitialiseTerrain () {
         heights = new float[size, size];
 
         // Bottom left
@@ -65,13 +95,13 @@ public class DiamondSquareTerrain : MonoBehaviour {
         heights[maxSize, maxSize] = Random.value;
 
         // Update terrain heights
-        terrainData.SetHeights(0, 0, heights);
+        terrainData.SetHeights (0, 0, heights);
     }
 
     /// <summary>
     /// Heart of Diamond Square algorithm. 
     /// </summary>
-    private void DiamondSquare() {
+    private void DiamondSquare () {
         int stepSize = size - 1;
         float range = 0.5f;
 
@@ -81,20 +111,20 @@ public class DiamondSquareTerrain : MonoBehaviour {
         while (stepSize > 1) {
 
             // Diamond step
-            DiamondStep(stepSize, range);
+            DiamondStep (stepSize, range);
 
             // Square step
-            SqaureStep(stepSize, range);
+            SqaureStep (stepSize, range);
 
             // Lower the random value range
-            range -= range * 0.5f * roughness;
+            range -= range * roughness;
 
             // Half step size
             stepSize /= 2;
         }
 
         // Update terrain heights
-        terrainData.SetHeights(0, 0, heights);
+        terrainData.SetHeights (0, 0, heights);
     }
 
     /// <summary>
@@ -103,7 +133,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// </summary>
     /// <param name="stepSize"></param>
     /// <param name="range"></param>
-    private void DiamondStep(int stepSize, float range) {
+    private void DiamondStep (int stepSize, float range) {
         int midPoint = stepSize / 2;
 
         // Traverse x, y point heights
@@ -134,7 +164,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// </summary>
     /// <param name="stepSize"></param>
     /// <param name="range"></param>
-    private void SqaureStep(int stepSize, float range) {
+    private void SqaureStep (int stepSize, float range) {
         int midPoint = stepSize / 2;
 
         // Traverse x, y points
@@ -169,10 +199,40 @@ public class DiamondSquareTerrain : MonoBehaviour {
     }
 
     /// <summary>
+    /// Adds textures to terrain.
+    /// </summary>
+    private void AddTextures () {
+
+        // Splatmap data is stored internally as a 3d array of floats
+        float[, , ] splatmapData = new float[terrainData.alphamapWidth, terrainData.alphamapHeight, terrainData.alphamapLayers];
+
+        // Loop over the points and assign textures
+        for (int y = 0; y < terrainData.alphamapHeight; y++) {
+            for (int x = 0; x < terrainData.alphamapWidth; x++) {
+                float height = terrainData.GetHeight (y, x);
+
+                if (height <= dirtHeight) {
+                    splatmapData[x, y, DIRT] = 1.0f;
+                } else if (height <= grassHeight && height > dirtHeight) {
+                    splatmapData[x, y, GRASS] = 1.0f;
+                } else if (height <= rockHeight && height > grassHeight) {
+                    splatmapData[x, y, ROCK] = 1.0f;
+                } else {
+                    splatmapData[x, y, SNOW] = 1.0f;
+                }
+
+            }
+        }
+
+        // Finally assign the new splatmap to the terrainData:
+        terrainData.SetAlphamaps (0, 0, splatmapData);
+    }
+
+    /// <summary>
     /// Getter for size of terrain map.
     /// </summary>
-    /// <returns></returns>
-    public float getSize() {
+    /// <returns>Returns size of map</returns>
+    public float GetSize () {
         return size;
     }
 
