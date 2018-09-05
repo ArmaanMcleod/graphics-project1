@@ -39,6 +39,7 @@ Shader "Custom/PhongShader"
 	}
 	SubShader
 	{
+        Tags { "RenderType"="Opaque" }
 		Pass
 	{
 		CGPROGRAM
