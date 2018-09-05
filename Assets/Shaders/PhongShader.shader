@@ -5,6 +5,11 @@
 		_PointLightColor("Point Light Color", Color) = (0,0,0)
 		_PointLightPosition("Point Light Position", Vector) = (0.0,0.0,0.0)
 
+        _SnowTex ("Snow Texture", 2D) = "white" {}
+		_RockTex ("Rock Texture", 2D) = "white" {}
+		_GrassTex ("Grass Texture", 2D) = "white" {}
+		_DirtTex ("Dirt Texture", 2D) = "white" {}
+
 	}
 	SubShader
 	{
@@ -23,6 +28,11 @@
         uniform float _RockHeight;
         uniform float _GrassHeight;
         uniform float _DirtHeight;
+
+        uniform sampler2D _SnowTex;
+		uniform sampler2D _DirtTex;
+		uniform sampler2D _RockTex;
+		uniform sampler2D _GrassTex;
 
 		struct vertIn
 		{
@@ -88,14 +98,14 @@
 
 			// Calculate diffuse RBG reflections
 			float fAtt = 1;
-			float Kd = 1;
+			float Kd = 0.7;
 			float3 L = normalize(_PointLightPosition - v.worldVertex.xyz);
 			float LdotN = dot(L, interpNormal);
 			float3 dif = fAtt * _PointLightColor.rgb * Kd * v.color.rgb * saturate(LdotN);
 
 			// Calculate specular reflections using Blinn-Phong approximation
-			float Ks = 0.2;
-			float specN = 25; // A higher specular power is needed when using Blinn-Phong
+			float Ks = 0.1;
+			float specN = 5; // A higher specular power is needed when using Blinn-Phong
 			float3 V = normalize(_WorldSpaceCameraPos - v.worldVertex.xyz);
 			float3 H = normalize(V + L);
 			float3 spe = fAtt * _PointLightColor.rgb * Ks * pow(saturate(dot(interpNormal, H)), specN);

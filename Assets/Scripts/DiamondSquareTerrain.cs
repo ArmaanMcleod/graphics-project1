@@ -43,8 +43,8 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private float grassHeight;
     private float rockHeight;
 
-    // Terrain of shader
-    private Material material;
+    // Terrain material
+    public Material material;
 
     /// <summary>
     /// Used for initialization.
@@ -85,7 +85,6 @@ public class DiamondSquareTerrain : MonoBehaviour {
         material.SetFloat ("_DirtHeight", dirtHeight);
         material.SetFloat ("_GrassHeight", grassHeight);
         material.SetFloat ("_RockHeight", rockHeight);
-
     }
 
     /// <summary>

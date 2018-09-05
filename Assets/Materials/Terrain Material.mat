@@ -35,7 +35,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DirtTex:
-        m_Texture: {fileID: 2800000, guid: 05742dc0d79b89a4faca779b1e635890, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6e012ffc226afba41879d5a4e099b258, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -47,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GrassTex:
-        m_Texture: {fileID: 2800000, guid: 299e08115cb45f743af3042e40286bfb, type: 3}
+        m_Texture: {fileID: 2800000, guid: bd73130c4a103eb488b56b034b67bf1e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -67,11 +67,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RockTex:
-        m_Texture: {fileID: 2800000, guid: 68e0ed8ffcba9ef48bb45419778f5198, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1bcc0a6e25cfb2a4d85a6fabd3844287, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SnowTex:
-        m_Texture: {fileID: 2800000, guid: c8a2108324e85554fa8874eeb436bf1e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8cf6a922f3417ed4d8be006d3428f38b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -85,12 +85,12 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GrassHeight: 5
+    - _GrassHeight: 64.013
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RockHeight: 80
+    - _RockHeight: 128.026
     - _Shininess: 2.5
     - _SmoothnessTextureChannel: 0
     - _SnowHeight: 150
@@ -107,5 +107,5 @@ Material:
     - _EmiColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _PointLightColor: {r: 1, g: 0.9295865, b: 0, a: 1}
-    - _PointLightPosition: {r: 146.02042, g: -74.13936, b: 303.05, a: 0}
+    - _PointLightPosition: {r: 159.80902, g: -162.60399, b: 303.05, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
