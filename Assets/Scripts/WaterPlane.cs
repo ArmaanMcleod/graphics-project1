@@ -73,6 +73,7 @@ public class WaterPlane : MonoBehaviour {
         Vector3[] vertices = new Vector3[heights.Length];
 
         // Assign random heights to vertices
+        // Creates water bobbing up and down effect
         for (int i = 0; i < vertices.Length; i++) {
             Vector3 vertex = heights[i];
 

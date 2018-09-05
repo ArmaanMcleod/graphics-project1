@@ -73,7 +73,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
         DiamondSquare ();
 
         // Calculate maximum height in terrain
-        maxHeight = terrainData.bounds.max.y;
+        maxHeight = getMaxHeight ();
 
         // Intialise landscape heights
         dirtHeight = (float) 0.1 * maxHeight;
@@ -84,6 +84,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
         material.SetFloat ("_DirtHeight", dirtHeight);
         material.SetFloat ("_GrassHeight", grassHeight);
         material.SetFloat ("_RockHeight", rockHeight);
+
     }
 
     /// <summary>
@@ -223,33 +224,29 @@ public class DiamondSquareTerrain : MonoBehaviour {
     }
 
     /// <summary>
-    /// Adds textures to terrain.
+    /// Get Max height inside terrain.
     /// </summary>
-    private void AddTextures () {
+    /// <returns>Returns the highest point in terrain array</returns>
+    private float getMaxHeight () {
 
-        // Splatmap data is stored internally as a 3d array of floats
-        float[, , ] splatmapData = new float[terrainData.alphamapWidth, terrainData.alphamapHeight, terrainData.alphamapLayers];
+        // Set maximum height as lowest possible number
+        float currMaxHeight = float.MinValue;
 
-        // Loop over the points and assign textures
-        for (int y = 0; y < terrainData.alphamapHeight; y++) {
-            for (int x = 0; x < terrainData.alphamapWidth; x++) {
-                float height = terrainData.GetHeight (y, x);
+        // Traverse x and y points
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
 
-                if (height <= dirtHeight) {
-                    splatmapData[x, y, DIRT] = 1.0f;
-                } else if (height <= grassHeight && height > dirtHeight) {
-                    splatmapData[x, y, GRASS] = 1.0f;
-                } else if (height <= rockHeight && height > grassHeight) {
-                    splatmapData[x, y, ROCK] = 1.0f;
-                } else {
-                    splatmapData[x, y, SNOW] = 1.0f;
+                // Get height in world perspective
+                float height = terrainData.GetHeight (x, y);
+
+                // Replace current max height
+                if (height > currMaxHeight) {
+                    currMaxHeight = height;
                 }
-
             }
         }
 
-        // Finally assign the new splatmap to the terrainData:
-        terrainData.SetAlphamaps (0, 0, splatmapData);
+        return currMaxHeight;
     }
 
 }

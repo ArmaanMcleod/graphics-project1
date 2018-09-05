@@ -21,7 +21,7 @@
 // Adapted for COMP30019 by Jeremy Nicholson, 10 Sep 2012
 // Adapted further by Chris Ewin, 23 Sep 2013
 // Adapted further (again) by Alex Zable (port to Unity), 19 Aug 2016
-// Adapted further (again) by Armaan McLeod, Alice Lin and Alex Vosnakis
+// Adapted further (again x 3) by Armaan McLeod, Alice Lin and Alex Vosnakis
 
 //UNITY_SHADER_NO_UPGRADE
 
@@ -94,19 +94,20 @@ Shader "Custom/PhongShader"
 			o.vertex = UnityObjectToClipPos(v.vertex);
 			fixed4 color;
             float height = v.vertex.y;
+            float4 textureCoord = float4(v.uv,0,0);
 
             // Colour texture based on height
-            if (height <= _DirtHeight) {
-                color = tex2Dlod(_DirtTex, float4(v.uv,0,0));
+           if (height <= _DirtHeight) {
+                color = tex2Dlod(_DirtTex, textureCoord);
             } 
             else if (height <= _GrassHeight && height > _DirtHeight) {
-                color = tex2Dlod(_GrassTex, float4(v.uv,0,0));
+                color = tex2Dlod(_GrassTex, textureCoord);
             } 
             else if (height <= _RockHeight && height > _GrassHeight) {
-                color = tex2Dlod(_RockTex, float4(v.uv,0,0));
+                color = tex2Dlod(_RockTex, textureCoord;
             } 
             else {
-                color = tex2Dlod(_SnowTex, float4(v.uv,0,0));
+                color = tex2Dlod(_SnowTex, textureCoord);
             }
             o.color = color;
 
