@@ -57,7 +57,6 @@ public class DiamondSquareTerrain : MonoBehaviour {
         material = terrain.materialTemplate;
 
         // Get terrain data
-        // Also attach a TerrainCollider for collision detection
         terrainData = terrain.terrainData;
 
         // Position terrain at origin (0, 0, 0)

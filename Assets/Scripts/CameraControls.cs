@@ -32,16 +32,19 @@ public class CameraControls : MonoBehaviour {
     /// <summary>
     /// Used for initialisation of camera.
     /// </summary>
-    void Start () {
+    private void Start () {
         // This locks the cursor to the centre of the screen
         Cursor.lockState = CursorLockMode.Locked;
-        transform.position += new Vector3 (0, 100f, 0);
+
+        // Start up location 
+        this.transform.position = new Vector3 (0.0f, 100.0f, 0.0f);
+
     }
 
     /// <summary>
     /// This is called once per frame to update camera movements.
     /// </summary>
-    void Update () {
+    private void Update () {
 
         // Rotation
         Rotate ();
