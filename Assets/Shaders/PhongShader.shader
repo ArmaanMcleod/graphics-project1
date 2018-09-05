@@ -104,7 +104,7 @@ Shader "Custom/PhongShader"
                 color = tex2Dlod(_GrassTex, textureCoord);
             } 
             else if (height <= _RockHeight && height > _GrassHeight) {
-                color = tex2Dlod(_RockTex, textureCoord;
+                color = tex2Dlod(_RockTex, textureCoord);
             } 
             else {
                 color = tex2Dlod(_SnowTex, textureCoord);

@@ -14,7 +14,6 @@ using UnityEngine;
 /// 
 /// * Mouse controls pitch and yaw.
 /// </summary>
-[RequireComponent (typeof (DiamondSquareTerrain))]
 public class CameraControls : MonoBehaviour {
 
     // Current rotation of camera
@@ -27,7 +26,7 @@ public class CameraControls : MonoBehaviour {
     public float sensitivity = 10.0f;
 
     // Speed of camera
-    public float moveSpeed = 10.0f;
+    public float moveSpeed = 50.0f;
 
     /// <summary>
     /// Used for initialisation of camera.

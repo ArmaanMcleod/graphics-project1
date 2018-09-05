@@ -6,8 +6,6 @@ using UnityEngine;
 /// When attached to a plane object, a plane is inserted underneath your Terrain
 /// object and waves are generated.
 /// </summary>
-[RequireComponent (typeof (Terrain))]
-[RequireComponent (typeof (MeshFilter))]
 public class WaterPlane : MonoBehaviour {
     // Mesh holding verticies
     public Mesh mesh;
