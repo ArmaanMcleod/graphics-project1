@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// When attached to a Sun sphere, this rotates the object around the center of a map.
+/// </summary>
+[RequireComponent (typeof (Renderer))]
+[RequireComponent (typeof (DiamondSquareTerrain))]
 public class SunRotation : MonoBehaviour {
 
     // Speed of sun
@@ -10,10 +15,13 @@ public class SunRotation : MonoBehaviour {
     // Scale size for sun
     public float scale = 20.0f;
 
+    // Color of object
     private Color color;
 
-    // Use this for initialization
-    void Start () {
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    private void Start () {
 
         // Multiple x, y, z scales ot make object bigger
         float xScale = this.transform.localScale.x * scale;
@@ -22,17 +30,19 @@ public class SunRotation : MonoBehaviour {
 
         this.transform.localScale = new Vector3 (xScale, yScale, zScale);
 
+        // Extract colour component
         color = GetComponent<Renderer> ().material.color;
-
     }
 
-    // Update is called once per frame
-    void Update () {
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    private void Update () {
 
         // Get size of terrain
         GameObject terrainObject = GameObject.Find ("Terrain");
         DiamondSquareTerrain terrain = terrainObject.GetComponent<DiamondSquareTerrain> ();
-        float terrainSize = terrain.GetSize ();
+        float terrainSize = terrain.GetSize () * 2;
 
         // Centre position of map
         Vector3 position = new Vector3 (terrainSize / 2, 0, terrainSize / 2);
@@ -42,10 +52,18 @@ public class SunRotation : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Gets the color of the sun.
+    /// </summary>
+    /// <returns>The color of the sun</returns>
     public Color GetColor () {
         return color;
     }
 
+    /// <summary>
+    /// Gets the current position of the sun in World space.
+    /// </summary>
+    /// <returns>A vector position</returns>
     public Vector3 GetWorldPosition () {
         return transform.position;
     }

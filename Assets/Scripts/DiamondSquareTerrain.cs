@@ -43,12 +43,18 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private float grassHeight;
     private float rockHeight;
 
+    // Terrain of shader
+    private Material material;
+
     /// <summary>
     /// Used for initialization.
     /// </summary>
     private void Start () {
         // Get active terrain
         terrain = Terrain.activeTerrain;
+
+        // Get Terrain material
+        material = terrain.materialTemplate;
 
         // Get terrain data
         // Also attach a TerrainCollider for collision detection
@@ -75,16 +81,23 @@ public class DiamondSquareTerrain : MonoBehaviour {
         grassHeight = (float) 0.25 * maxHeight;
         rockHeight = (float) 0.5 * maxHeight;
 
-        // Add textures to terrain
-        AddTextures ();
+        // Pass heights to shader
+        material.SetFloat ("_DirtHeight", dirtHeight);
+        material.SetFloat ("_GrassHeight", grassHeight);
+        material.SetFloat ("_RockHeight", rockHeight);
+
     }
 
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
     private void Update () {
         GameObject sun = GameObject.Find ("Sphere");
         SunRotation sunRotation = sun.GetComponent<SunRotation> ();
 
-        terrain.materialTemplate.SetColor ("_PointLightColor", sunRotation.GetColor ());
-        terrain.materialTemplate.SetVector ("_PointLightPosition", sunRotation.GetWorldPosition ());
+        // Pass color of sun and world position to shader
+        material.SetColor ("_PointLightColor", sunRotation.GetColor ());
+        material.SetVector ("_PointLightPosition", sunRotation.GetWorldPosition ());
     }
 
     /// <summary>
