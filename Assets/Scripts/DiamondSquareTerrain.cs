@@ -14,6 +14,9 @@ public class DiamondSquareTerrain : MonoBehaviour {
     // Container for heights of a terrain
     private TerrainData terrainData;
 
+    // Terrain object
+    private Terrain terrain;
+
     // Size of terrain
     private int size;
 
@@ -24,7 +27,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private float[, ] heights;
 
     // Variable determining roughness of heights
-    public float roughness = 0.6f;
+    public float roughness = 0.8f;
 
     // Maximum height in terrain
     private float maxHeight;
@@ -45,7 +48,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// </summary>
     private void Start () {
         // Get active terrain
-        Terrain terrain = Terrain.activeTerrain;
+        terrain = Terrain.activeTerrain;
 
         // Get terrain data
         // Also attach a TerrainCollider for collision detection
@@ -74,6 +77,14 @@ public class DiamondSquareTerrain : MonoBehaviour {
 
         // Add textures to terrain
         AddTextures ();
+    }
+
+    private void Update () {
+        GameObject sun = GameObject.Find ("Sphere");
+        SunRotation sunRotation = sun.GetComponent<SunRotation> ();
+
+        terrain.materialTemplate.SetColor ("_PointLightColor", sunRotation.GetColor ());
+        terrain.materialTemplate.SetVector ("_PointLightPosition", sunRotation.GetWorldPosition ());
     }
 
     /// <summary>
@@ -117,7 +128,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
             SqaureStep (stepSize, range);
 
             // Lower the random value range
-            range -= range * roughness;
+            range -= range * Mathf.Pow (roughness, 2);
 
             // Half step size
             stepSize /= 2;

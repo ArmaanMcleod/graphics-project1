@@ -10,6 +10,8 @@ public class SunRotation : MonoBehaviour {
     // Scale size for sun
     public float scale = 20.0f;
 
+    private Color color;
+
     // Use this for initialization
     void Start () {
 
@@ -19,6 +21,8 @@ public class SunRotation : MonoBehaviour {
         float zScale = this.transform.localScale.z * scale;
 
         this.transform.localScale = new Vector3 (xScale, yScale, zScale);
+
+        color = GetComponent<Renderer> ().material.color;
 
     }
 
@@ -34,7 +38,15 @@ public class SunRotation : MonoBehaviour {
         Vector3 position = new Vector3 (terrainSize / 2, 0, terrainSize / 2);
 
         // Rotation around centre
-        this.transform.RotateAround (position, Vector3.forward, speed * Time.deltaTime);
+        transform.RotateAround (position, Vector3.forward, speed * Time.deltaTime);
 
+    }
+
+    public Color GetColor () {
+        return color;
+    }
+
+    public Vector3 GetWorldPosition () {
+        return transform.position;
     }
 }

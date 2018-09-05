@@ -21,6 +21,9 @@
         _EmissionTex ("Emission texture", 2D) = "gray" {}
         _EmiVal ("Intensity", float) = 0.
         [HDR]_EmiColor ("Color", color) = (1., 1., 1., 1.)
+
+        _PointLightColor("Point Light Color", Color) = (0,0,0)
+		_PointLightPosition("Point Light Position", Vector) = (0.0,0.0,0.0)
     }
  
     SubShader
@@ -37,6 +40,30 @@
             #pragma shader_feature __ _SPEC_ON
  
             #include "UnityCG.cginc"
+
+            sampler2D _MainTex;
+ 
+            fixed4 _LightColor0;
+
+            float3 _PointLightColor;
+            float3 _PointLightPosition;
+           
+            // Diffuse
+            fixed _Diffuse;
+            fixed4 _DifColor;
+ 
+            //Specular
+            fixed _Shininess;
+            fixed4 _SpecColor;
+           
+            //Ambient
+            fixed _Ambient;
+            fixed4 _AmbColor;
+ 
+            // Emission
+            sampler2D _EmissionTex;
+            fixed4 _EmiColor;
+            fixed _EmiVal;
  
             struct v2f {
                 float4 pos : SV_POSITION;
@@ -62,26 +89,6 @@
                 return o;
             }
  
-            sampler2D _MainTex;
- 
-            fixed4 _LightColor0;
-           
-            // Diffuse
-            fixed _Diffuse;
-            fixed4 _DifColor;
- 
-            //Specular
-            fixed _Shininess;
-            fixed4 _SpecColor;
-           
-            //Ambient
-            fixed _Ambient;
-            fixed4 _AmbColor;
- 
-            // Emission
-            sampler2D _EmissionTex;
-            fixed4 _EmiColor;
-            fixed _EmiVal;
  
             fixed4 frag(v2f i) : SV_Target
             {
