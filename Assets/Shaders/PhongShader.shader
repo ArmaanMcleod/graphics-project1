@@ -95,16 +95,16 @@
  
                 float3 worldNormal = normalize(i.worldNormal);
  
-                // Compute ambient lighting
+                // Ambient lighting
                 fixed4 amb = _Ambient * _AmbColor;
  
-                // Compute the diffuse lighting
+                // Diffuse lighting
                 fixed4 NdotL = max(0., dot(worldNormal, lightDir) * _LightColor0);
                 fixed4 dif = NdotL * _Diffuse * _LightColor0 * _DifColor;
  
                 fixed4 light = dif + amb;
  
-                // If enabled, compute the specular lighting (Blinn-phong)
+                // Specular lighting
                 #if _SPEC_ON
                 float3 HalfVector = normalize(lightDir + viewDir);
                 float NdotH = max(0., dot(worldNormal, HalfVector));
@@ -115,7 +115,7 @@
  
                 c.rgb *= light.rgb;
  
-                // Compute emission
+                // Emission
                 fixed4 emi = tex2D(_EmissionTex, i.uv).r * _EmiColor * _EmiVal;
                 c.rgb += emi.rgb;
                

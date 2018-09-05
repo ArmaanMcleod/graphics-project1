@@ -329,12 +329,12 @@ Terrain:
   m_DrawHeightmap: 1
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialType: 0
+  m_MaterialType: 3
   m_LegacySpecular:
     serializedVersion: 2
     rgba: 4286545791
   m_LegacyShininess: 0.078125
-  m_MaterialTemplate: {fileID: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 13f9970093a034a4b9e30c6bc2709f38, type: 2}
   m_BakeLightProbesForTrees: 1
   m_ScaleInLightmap: 0.1024
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
@@ -374,8 +374,8 @@ GameObject:
   - component: {fileID: 1741490556}
   - component: {fileID: 1741490555}
   - component: {fileID: 1741490554}
-  - component: {fileID: 1741490553}
   - component: {fileID: 1741490558}
+  - component: {fileID: 1741490553}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  scale: 5
+  scale: 20
 --- !u!135 &1741490554
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -472,7 +472,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4279038433
+    rgba: 4278247677
   m_Size: 20
 --- !u!1 &2114295802
 GameObject:
