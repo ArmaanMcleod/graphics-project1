@@ -13,7 +13,7 @@ public class SunRotation : MonoBehaviour {
     public float speed = 20.0f;
 
     // Scale size for sun
-    public float scale = 40.0f;
+    public float scale = 50.0f;
 
     // Color of object
     private Color color;

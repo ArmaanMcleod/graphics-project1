@@ -21,6 +21,7 @@
 // Adapted for COMP30019 by Jeremy Nicholson, 10 Sep 2012
 // Adapted further by Chris Ewin, 23 Sep 2013
 // Adapted further (again) by Alex Zable (port to Unity), 19 Aug 2016
+// Adapted further (again) by Armaan McLeod, Alice Lin and Alex Vosnakis
 
 //UNITY_SHADER_NO_UPGRADE
 
@@ -31,11 +32,10 @@ Shader "Custom/PhongShader"
 		_PointLightColor("Point Light Color", Color) = (0,0,0)
 		_PointLightPosition("Point Light Position", Vector) = (0.0,0.0,0.0)
 
-        _SnowTex ("Snow Texture", 2D) = "white" {}
-		_RockTex ("Rock Texture", 2D) = "white" {}
-		_GrassTex ("Grass Texture", 2D) = "white" {}
 		_DirtTex ("Dirt Texture", 2D) = "white" {}
-
+        _GrassTex ("Grass Texture", 2D) = "white" {}
+        _RockTex ("Rock Texture", 2D) = "white" {}
+        _SnowTex ("Snow Texture", 2D) = "white" {}
 	}
 	SubShader
 	{
@@ -48,25 +48,31 @@ Shader "Custom/PhongShader"
 
 		#include "UnityCG.cginc"
 
+        // Point light colour and position
 		uniform float3 _PointLightColor;
 		uniform float3 _PointLightPosition;
 
-        uniform float _RockHeight;
-        uniform float _GrassHeight;
+        // Height sections
         uniform float _DirtHeight;
+        uniform float _GrassHeight;
+        uniform float _RockHeight;
 
-        uniform sampler2D _SnowTex;
+        // Textures
 		uniform sampler2D _DirtTex;
-		uniform sampler2D _RockTex;
 		uniform sampler2D _GrassTex;
+        uniform sampler2D _RockTex;
+        uniform sampler2D _SnowTex;
 
+        // Input vertex
 		struct vertIn
 		{
 			float4 vertex : POSITION;
 			float4 normal : NORMAL;
 			float4 color : COLOR;
+            float2 uv : TEXCOORD0;
 		};
 
+        // Output vertex
 		struct vertOut
 		{
 			float4 vertex : SV_POSITION;
@@ -89,18 +95,18 @@ Shader "Custom/PhongShader"
 			fixed4 color;
             float height = v.vertex.y;
 
-            // Colour based on height
+            // Colour texture based on height
             if (height <= _DirtHeight) {
-                color = float4(0.57254, 0.38431, 0.22353, 1);
+                color = tex2Dlod(_DirtTex, float4(v.uv,0,0));
             } 
             else if (height <= _GrassHeight && height > _DirtHeight) {
-                color = float4(0.09804, 0.54902, 0.09804, 1);
+                color = tex2Dlod(_GrassTex, float4(v.uv,0,0));
             } 
             else if (height <= _RockHeight && height > _GrassHeight) {
-                color = float4(0.5, 0.5, 0.5, 1);
+                color = tex2Dlod(_RockTex, float4(v.uv,0,0));
             } 
             else {
-                color = float4(1, 1, 1, 1);
+                color = tex2Dlod(_SnowTex, float4(v.uv,0,0));
             }
             o.color = color;
 
