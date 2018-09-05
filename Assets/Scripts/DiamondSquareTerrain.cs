@@ -91,6 +91,8 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     private void Update () {
+
+        // Get sub object
         GameObject sun = GameObject.Find ("Sphere");
         SunRotation sunRotation = sun.GetComponent<SunRotation> ();
 
@@ -249,14 +251,6 @@ public class DiamondSquareTerrain : MonoBehaviour {
 
         // Finally assign the new splatmap to the terrainData:
         terrainData.SetAlphamaps (0, 0, splatmapData);
-    }
-
-    /// <summary>
-    /// Getter for size of terrain map.
-    /// </summary>
-    /// <returns>Returns size of map</returns>
-    public float GetSize () {
-        return size;
     }
 
 }

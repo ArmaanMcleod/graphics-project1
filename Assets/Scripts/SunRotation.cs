@@ -6,7 +6,7 @@ using UnityEngine;
 /// When attached to a Sun sphere, this rotates the object around the center of a map.
 /// </summary>
 [RequireComponent (typeof (Renderer))]
-[RequireComponent (typeof (DiamondSquareTerrain))]
+[RequireComponent (typeof (Terrain))]
 public class SunRotation : MonoBehaviour {
 
     // Speed of sun
@@ -38,18 +38,18 @@ public class SunRotation : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     private void Update () {
-
-        // Get size of terrain
+        // Obtain terrain obejct
         GameObject terrainObject = GameObject.Find ("Terrain");
-        DiamondSquareTerrain terrain = terrainObject.GetComponent<DiamondSquareTerrain> ();
-        float terrainSize = terrain.GetSize () / 2;
+        Terrain terrain = terrainObject.GetComponent<Terrain> ();
+
+        // Get terrain center point
+        float center = terrain.terrainData.heightmapWidth / 2;
 
         // Centre position of map
-        Vector3 position = new Vector3 (terrainSize * 2, 0, terrainSize * 2);
+        Vector3 position = new Vector3 (center * 2, 0, center * 2);
 
-        // Rotation around centre
+        // Rotation around center
         transform.RotateAround (position, Vector3.forward, speed * Time.deltaTime);
-
     }
 
     /// <summary>
