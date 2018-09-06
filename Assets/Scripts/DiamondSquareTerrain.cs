@@ -88,16 +88,16 @@ public class DiamondSquareTerrain : MonoBehaviour {
         heights = new float[size, size];
 
         // Bottom left
-        heights[0, 0] = 1;
+        heights[0, 0] = Random.value;
 
         // Bottom right
-        heights[maxSize, 0] = 1;
+        heights[maxSize, 0] = Random.value;
 
         // Top left
-        heights[0, maxSize] = 1;
+        heights[0, maxSize] = Random.value;
 
         // Top right
-        heights[maxSize, maxSize] = 1;
+        heights[maxSize, maxSize] = Random.value;
 
         // Update terrain heights
         terrainData.SetHeights (0, 0, heights);
