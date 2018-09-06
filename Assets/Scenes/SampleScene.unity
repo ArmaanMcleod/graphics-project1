@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reboundDistance: 10
   sensitivity: 1
-  moveSpeed: 10
+  moveSpeed: 50
 --- !u!20 &282840813
 Camera:
   m_ObjectHideFlags: 0
@@ -505,11 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f412b8ecdaefffe418852264dd6398e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
   mapScale: 51
-  timeStep: 0.3
-  start: -0.1
-  end: 1
 --- !u!64 &2114295804
 MeshCollider:
   m_ObjectHideFlags: 0
