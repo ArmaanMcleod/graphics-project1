@@ -20,7 +20,7 @@ public class SunRotation : MonoBehaviour {
     private Vector3 centerPosition;
 
     // Radius of rotation
-    public float radiusRotation;
+    private float radiusRotation;
 
     // Speed of rotation radius
     public float radiusSpeed;
@@ -36,6 +36,9 @@ public class SunRotation : MonoBehaviour {
         // Get terrain center point
         float center = terrain.terrainData.heightmapWidth / 2;
         centerPosition = new Vector3 (center, 0.0f, center);
+
+        // Set radius as maximum height
+        radiusRotation = terrain.terrainData.heightmapHeight;
 
         // Update position 
         this.transform.position = GetNewPosition ();
