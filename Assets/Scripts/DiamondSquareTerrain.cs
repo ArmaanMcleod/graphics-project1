@@ -7,12 +7,13 @@ using UnityEngine;
 /// When attached to a Terrain GameObject, it can be used to randomise heights
 /// using the Diamond-Square algorithm taught in lectures.
 /// </summary>
-[RequireComponent (typeof (TerrainData))]
-[RequireComponent (typeof (Terrain))]
 public class DiamondSquareTerrain : MonoBehaviour {
 
     // Container for heights of a terrain
     private TerrainData terrainData;
+
+    // Terrain object
+    private Terrain terrain;
 
     // Size of terrain
     private int size;
@@ -24,7 +25,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private float[, ] heights;
 
     // Variable determining roughness of heights
-    public float roughness = 0.6f;
+    public float roughness = 0.8f;
 
     // Maximum height in terrain
     private float maxHeight;
@@ -40,15 +41,20 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private float grassHeight;
     private float rockHeight;
 
+    // Terrain material
+    public Material material;
+
     /// <summary>
     /// Used for initialization.
     /// </summary>
     private void Start () {
         // Get active terrain
-        Terrain terrain = Terrain.activeTerrain;
+        terrain = Terrain.activeTerrain;
+
+        // Get Terrain material
+        material = terrain.materialTemplate;
 
         // Get terrain data
-        // Also attach a TerrainCollider for collision detection
         terrainData = terrain.terrainData;
 
         // Position terrain at origin (0, 0, 0)
@@ -65,15 +71,32 @@ public class DiamondSquareTerrain : MonoBehaviour {
         DiamondSquare ();
 
         // Calculate maximum height in terrain
-        maxHeight = terrainData.bounds.max.y;
+        maxHeight = getMaxHeight ();
 
         // Intialise landscape heights
         dirtHeight = (float) 0.1 * maxHeight;
         grassHeight = (float) 0.25 * maxHeight;
         rockHeight = (float) 0.5 * maxHeight;
 
-        // Add textures to terrain
-        AddTextures ();
+        // Pass heights to shader
+        material.SetFloat ("_DirtHeight", dirtHeight);
+        material.SetFloat ("_GrassHeight", grassHeight);
+        material.SetFloat ("_RockHeight", rockHeight);
+
+    }
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    private void Update () {
+
+        // Get sub object
+        GameObject sun = GameObject.Find ("Sphere");
+        SunRotation sunRotation = sun.GetComponent<SunRotation> ();
+
+        // Pass color of sun and world position to shader
+        material.SetColor ("_PointLightColor", sunRotation.GetColor ());
+        material.SetVector ("_PointLightPosition", sunRotation.GetWorldPosition ());
     }
 
     /// <summary>
@@ -199,41 +222,29 @@ public class DiamondSquareTerrain : MonoBehaviour {
     }
 
     /// <summary>
-    /// Adds textures to terrain.
+    /// Get Max height inside terrain.
     /// </summary>
-    private void AddTextures () {
+    /// <returns>Returns the highest point in terrain array</returns>
+    private float getMaxHeight () {
 
-        // Splatmap data is stored internally as a 3d array of floats
-        float[, , ] splatmapData = new float[terrainData.alphamapWidth, terrainData.alphamapHeight, terrainData.alphamapLayers];
+        // Set maximum height as lowest possible number
+        float currMaxHeight = float.MinValue;
 
-        // Loop over the points and assign textures
-        for (int y = 0; y < terrainData.alphamapHeight; y++) {
-            for (int x = 0; x < terrainData.alphamapWidth; x++) {
-                float height = terrainData.GetHeight (y, x);
+        // Traverse x and y points
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
 
-                if (height <= dirtHeight) {
-                    splatmapData[x, y, DIRT] = 1.0f;
-                } else if (height <= grassHeight && height > dirtHeight) {
-                    splatmapData[x, y, GRASS] = 1.0f;
-                } else if (height <= rockHeight && height > grassHeight) {
-                    splatmapData[x, y, ROCK] = 1.0f;
-                } else {
-                    splatmapData[x, y, SNOW] = 1.0f;
+                // Get height in world perspective
+                float height = terrainData.GetHeight (x, y);
+
+                // Replace current max height
+                if (height > currMaxHeight) {
+                    currMaxHeight = height;
                 }
-
             }
         }
 
-        // Finally assign the new splatmap to the terrainData:
-        terrainData.SetAlphamaps (0, 0, splatmapData);
-    }
-
-    /// <summary>
-    /// Getter for size of terrain map.
-    /// </summary>
-    /// <returns>Returns size of map</returns>
-    public float GetSize () {
-        return size;
+        return currMaxHeight;
     }
 
 }
