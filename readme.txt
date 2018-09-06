@@ -20,5 +20,4 @@ Note:
 * Parts of Cg/HLSL WaveSahder from lab 4 was used to generate waves.
 * Script parameters are customizable through Unity inspector. No need to be modified when running project.
 * Due to the randomness of the Diamond square algorithm, sometimes the terrain renders flat. 
-
-
+* Phong Shading only applied to terrain.
