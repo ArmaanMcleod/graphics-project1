@@ -15,9 +15,10 @@ Implementation Choices:
 * Sphere object with halo used to create sun.
 
 Note:
+* Project runs within MainScene.unity. 
 * Diamond Square algorithm inspired by http://www.playfuljs.com/realistic-terrain-in-130-lines/. 
-* Cg/HLSL PhongShader from lab 5 was used to supplement the Phong Illumination model. Modified specular and diffuse constants.
-* Parts of Cg/HLSL WaveSahder from lab 4 was used to generate waves.
+* Cg/HLSL PhongShader.shader from lab 5 was used to supplement the Phong Illumination model. Modified specular and diffuse constants.
+* Parts of Cg/HLSL WaveSahder.shader from lab 4 was used to generate waves.
 * Script parameters are customizable through Unity inspector. No need to be modified when running project.
 * Due to the randomness of the Diamond square algorithm, sometimes the terrain renders flat. 
-* Phong Shading only applied to terrain.
+* Phong Shading only applied to terrain, not water.
