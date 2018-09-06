@@ -88,16 +88,16 @@ public class DiamondSquareTerrain : MonoBehaviour {
         heights = new float[size, size];
 
         // Bottom left
-        heights[0, 0] = Random.value;
+        heights[0, 0] = 1;
 
         // Bottom right
-        heights[maxSize, 0] = Random.value;
+        heights[maxSize, 0] = 1;
 
         // Top left
-        heights[0, maxSize] = Random.value;
+        heights[0, maxSize] = 1;
 
         // Top right
-        heights[maxSize, maxSize] = Random.value;
+        heights[maxSize, maxSize] = 1;
 
         // Update terrain heights
         terrainData.SetHeights (0, 0, heights);
@@ -122,7 +122,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
             SqaureStep (stepSize, range);
 
             // Lower the random value range
-            range -= range * roughness;
+            range -= range * (roughness - 0.1f) * roughness;
 
             // Half step size
             stepSize /= 2;

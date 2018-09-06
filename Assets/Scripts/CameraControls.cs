@@ -31,6 +31,9 @@ public class CameraControls : MonoBehaviour {
     // Default rotation of camera 
     public float defaultRotation;
 
+    // Terrain size
+    private float terrainSize;
+
     /// <summary>
     /// Used for initialisation of camera.
     /// </summary>
@@ -38,10 +41,10 @@ public class CameraControls : MonoBehaviour {
         // This locks the cursor to the centre of the screen
         Cursor.lockState = CursorLockMode.Locked;
 
-        // Obtain terrain size
+        // Obtain terrain sizes
         GameObject terrainObject = GameObject.Find ("Terrain");
         Terrain terrain = terrainObject.GetComponent<Terrain> ();
-        float terrainSize = terrain.terrainData.heightmapWidth;
+        terrainSize = terrain.terrainData.heightmapWidth;
         float terrainHeight = terrain.terrainData.heightmapHeight;
 
         // Start up location 
@@ -129,13 +132,6 @@ public class CameraControls : MonoBehaviour {
     /// Ensures camera stays within bounds of terrain.
     /// </summary>
     private void CheckBounds () {
-        // Get terrain object
-        GameObject terrainObject = GameObject.Find ("Terrain");
-        Terrain terrain = terrainObject.GetComponent<Terrain> ();
-
-        // Get terrain size
-        float terrainSize = terrain.terrainData.heightmapWidth;
-
         // Copy current position
         Vector3 currentPostion = transform.position;
 
