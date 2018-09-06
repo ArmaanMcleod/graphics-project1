@@ -218,6 +218,7 @@ MonoBehaviour:
   reboundDistance: 60
   sensitivity: 10
   moveSpeed: 50
+  defaultRotation: 60
 --- !u!20 &282840813
 Camera:
   m_ObjectHideFlags: 0
