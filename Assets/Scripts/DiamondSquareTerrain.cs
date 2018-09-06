@@ -140,7 +140,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
             SqaureStep (stepSize, range);
 
             // Lower the random value range
-            range -= range * Mathf.Pow (roughness, 2);
+            range -= range * roughness;
 
             // Half step size
             stepSize /= 2;
