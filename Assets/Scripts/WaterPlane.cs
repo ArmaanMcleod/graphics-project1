@@ -9,7 +9,7 @@ using UnityEngine;
 public class WaterPlane : MonoBehaviour {
 
     // Hardcoded mapscale which fits the terrain
-    public float mapScale = 51.0f;
+    public float mapScale;
 
     // Use this for initialization
     private void Start () {

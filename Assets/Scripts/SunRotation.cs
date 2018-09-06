@@ -5,29 +5,45 @@ using UnityEngine;
 /// <summary>
 /// When attached to a Sun sphere, this rotates the object around the center of a map.
 /// </summary>
-[RequireComponent (typeof (Renderer))]
-[RequireComponent (typeof (Terrain))]
 public class SunRotation : MonoBehaviour {
 
     // Speed of sun
-    public float speed = 20.0f;
+    public float speed;
 
     // Scale size for sun
-    public float scale = 50.0f;
+    public float scale;
 
     // Color of object
     private Color color;
+
+    // Centre position in map
+    private Vector3 centerPosition;
+
+    // Radius of rotation
+    public float radiusRotation;
+
+    // Speed of rotation radius
+    public float radiusSpeed;
 
     /// <summary>
     /// Use this for initialization
     /// </summary>
     private void Start () {
+        // Obtain terrain obejct
+        GameObject terrainObject = GameObject.Find ("Terrain");
+        Terrain terrain = terrainObject.GetComponent<Terrain> ();
+
+        // Get terrain center point
+        float center = terrain.terrainData.heightmapWidth / 2;
+        centerPosition = new Vector3 (center, 0.0f, center);
+
+        // Update position 
+        this.transform.position = GetNewPosition ();
 
         // Multiple x, y, z scales ot make object bigger
         float xScale = this.transform.localScale.x * scale;
         float yScale = this.transform.localScale.y * scale;
         float zScale = this.transform.localScale.z * scale;
-
         this.transform.localScale = new Vector3 (xScale, yScale, zScale);
 
         // Extract colour component
@@ -38,18 +54,12 @@ public class SunRotation : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     private void Update () {
-        // Obtain terrain obejct
-        GameObject terrainObject = GameObject.Find ("Terrain");
-        Terrain terrain = terrainObject.GetComponent<Terrain> ();
-
-        // Get terrain center point
-        float center = terrain.terrainData.heightmapWidth / 2;
-
-        // Centre position of map
-        Vector3 position = new Vector3 (center * 2, 0, center * 2);
 
         // Rotation around center
-        transform.RotateAround (position, Vector3.forward, speed * Time.deltaTime);
+        transform.RotateAround (centerPosition, Vector3.forward, speed * Time.deltaTime);
+
+        // Move towards desired position
+        transform.position = Vector3.MoveTowards (transform.position, GetNewPosition (), Time.deltaTime * radiusSpeed);
     }
 
     /// <summary>
@@ -58,6 +68,14 @@ public class SunRotation : MonoBehaviour {
     /// <returns>The color of the sun</returns>
     public Color GetColor () {
         return color;
+    }
+
+    /// <summary>
+    /// Gets new position with respect to radius
+    /// </summary>
+    /// <returns>New vector position in world</returns>
+    private Vector3 GetNewPosition () {
+        return (transform.position - centerPosition).normalized * radiusRotation + centerPosition;
     }
 
     /// <summary>

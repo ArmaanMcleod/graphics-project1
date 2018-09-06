@@ -11,7 +11,7 @@ public class CameraCollision : MonoBehaviour {
     private Rigidbody rb;
 
     // radius of sphere
-    public int radius = 3;
+    public int radius;
 
     /// <summary>
     /// Used for initialisation.

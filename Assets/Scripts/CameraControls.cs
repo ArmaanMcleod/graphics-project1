@@ -20,13 +20,13 @@ public class CameraControls : MonoBehaviour {
     private Vector2 currentRotation;
 
     // Minimum distance allowed from edge of terrain
-    public float reboundDistance = 60.0f;
+    public float reboundDistance;
 
     // Sensitivity of camera
-    public float sensitivity = 10.0f;
+    public float sensitivity;
 
     // Speed of camera
-    public float moveSpeed = 50.0f;
+    public float moveSpeed;
 
     /// <summary>
     /// Used for initialisation of camera.
@@ -123,7 +123,7 @@ public class CameraControls : MonoBehaviour {
         Terrain terrain = terrainObject.GetComponent<Terrain> ();
 
         // Get terrain size
-        float terrainSize = terrain.terrainData.heightmapWidth - moveSpeed;
+        float terrainSize = terrain.terrainData.heightmapWidth;
 
         // Copy current position
         Vector3 currentPostion = transform.position;
