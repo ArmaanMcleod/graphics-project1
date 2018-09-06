@@ -25,7 +25,7 @@
 
 //UNITY_SHADER_NO_UPGRADE
 
-Shader "Custom/PhongShader"
+Shader "Unlit/PhongShader"
 {
 	Properties
 	{
