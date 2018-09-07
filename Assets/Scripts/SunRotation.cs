@@ -22,9 +22,6 @@ public class SunRotation : MonoBehaviour {
     // Radius of rotation
     private float radiusRotation;
 
-    // Speed of rotation radius
-    public float radiusSpeed;
-
     /// <summary>
     /// Use this for initialization
     /// </summary>
@@ -34,11 +31,14 @@ public class SunRotation : MonoBehaviour {
         Terrain terrain = terrainObject.GetComponent<Terrain> ();
 
         // Get terrain center point
-        float center = terrain.terrainData.heightmapWidth / 2;
-        centerPosition = new Vector3 (center, 0.0f, center);
+        float terrainSize = terrain.terrainData.heightmapWidth;
+        centerPosition = new Vector3 (terrainSize / 2, 0.0f, terrainSize / 2);
 
         // Set radius as maximum height
         radiusRotation = terrain.terrainData.heightmapHeight;
+
+        // Set sun to right of map
+        this.transform.position = new Vector3 (terrainSize, 0.0f, terrainSize / 2);
 
         // Update position 
         this.transform.position = GetNewPosition ();
@@ -62,7 +62,7 @@ public class SunRotation : MonoBehaviour {
         transform.RotateAround (centerPosition, Vector3.forward, speed * Time.deltaTime);
 
         // Move towards desired position
-        transform.position = Vector3.MoveTowards (transform.position, GetNewPosition (), Time.deltaTime * radiusSpeed);
+        transform.position = Vector3.MoveTowards (transform.position, GetNewPosition (), Time.deltaTime * speed);
     }
 
     /// <summary>
