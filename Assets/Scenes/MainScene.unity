@@ -475,7 +475,7 @@ Halo:
   m_Color:
     serializedVersion: 2
     rgba: 4278227199
-  m_Size: 30
+  m_Size: 50
 --- !u!1 &2114295802
 GameObject:
   m_ObjectHideFlags: 0
