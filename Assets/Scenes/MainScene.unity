@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25897f91f110f44af90554117a0d4047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reboundDistance: 10
+  reboundDistance: 50
   sensitivity: 1
   moveSpeed: 50
   defaultRotation: 60
