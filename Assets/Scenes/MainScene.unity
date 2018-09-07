@@ -218,6 +218,7 @@ MonoBehaviour:
   reboundDistance: 10
   sensitivity: 1
   moveSpeed: 50
+  defaultRotation: 60
 --- !u!20 &282840813
 Camera:
   m_ObjectHideFlags: 0
@@ -363,7 +364,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roughness: 0.8
-  material: {fileID: 0}
 --- !u!1 &1741490552
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   scale: 20
+  radiusSpeed: 0
 --- !u!135 &1741490554
 SphereCollider:
   m_ObjectHideFlags: 0

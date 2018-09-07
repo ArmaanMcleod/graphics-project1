@@ -1,0 +1,17 @@
+Group Member 1:
+name: Armaan Dhaliwal-Mcleod
+username: dhaliwala
+student ID: 837674
+contributions: Fractal landscape generation, Sun behaviour and Phong shader.
+
+Group Member 2:
+name: Alex Vosnakis
+username: avosnakis
+student ID: 743936
+contributions: Camera controls, Landscape bounds checking and Wave shader.
+
+Group Member 3:
+name: Qing Lin
+username: qingl1
+student ID: 696318
+contributions: Collision detection, Texture height mapping and Wave shader.

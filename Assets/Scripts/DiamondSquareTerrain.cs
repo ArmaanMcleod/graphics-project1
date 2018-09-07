@@ -12,9 +12,6 @@ public class DiamondSquareTerrain : MonoBehaviour {
     // Container for heights of a terrain
     private TerrainData terrainData;
 
-    // Terrain object
-    private Terrain terrain;
-
     // Size of terrain
     private int size;
 
@@ -25,31 +22,17 @@ public class DiamondSquareTerrain : MonoBehaviour {
     private float[, ] heights;
 
     // Variable determining roughness of heights
-    public float roughness = 0.8f;
-
-    // Maximum height in terrain
-    private float maxHeight;
-
-    // Texture indices
-    private static int DIRT = 0;
-    private static int GRASS = 1;
-    private static int ROCK = 2;
-    private static int SNOW = 3;
-
-    // Heights for textures
-    private float dirtHeight;
-    private float grassHeight;
-    private float rockHeight;
+    public float roughness;
 
     // Terrain material
-    public Material material;
+    private Material material;
 
     /// <summary>
     /// Used for initialization.
     /// </summary>
     private void Start () {
         // Get active terrain
-        terrain = Terrain.activeTerrain;
+        Terrain terrain = Terrain.activeTerrain;
 
         // Get Terrain material
         material = terrain.materialTemplate;
@@ -71,12 +54,12 @@ public class DiamondSquareTerrain : MonoBehaviour {
         DiamondSquare ();
 
         // Calculate maximum height in terrain
-        maxHeight = getMaxHeight ();
+        float maxHeight = GetMaxHeight ();
 
         // Intialise landscape heights
-        dirtHeight = (float) 0.1 * maxHeight;
-        grassHeight = (float) 0.25 * maxHeight;
-        rockHeight = (float) 0.5 * maxHeight;
+        float dirtHeight = (float) 0.1 * maxHeight;
+        float grassHeight = (float) 0.25 * maxHeight;
+        float rockHeight = (float) 0.5 * maxHeight;
 
         // Pass heights to shader
         material.SetFloat ("_DirtHeight", dirtHeight);
@@ -89,8 +72,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     private void Update () {
-
-        // Get sub object
+        // Get sun object
         GameObject sun = GameObject.Find ("Sphere");
         SunRotation sunRotation = sun.GetComponent<SunRotation> ();
 
@@ -140,7 +122,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
             SqaureStep (stepSize, range);
 
             // Lower the random value range
-            range -= range * roughness;
+            range -= range * (roughness - 0.1f) * roughness;
 
             // Half step size
             stepSize /= 2;
@@ -225,7 +207,7 @@ public class DiamondSquareTerrain : MonoBehaviour {
     /// Get Max height inside terrain.
     /// </summary>
     /// <returns>Returns the highest point in terrain array</returns>
-    private float getMaxHeight () {
+    private float GetMaxHeight () {
 
         // Set maximum height as lowest possible number
         float currMaxHeight = float.MinValue;

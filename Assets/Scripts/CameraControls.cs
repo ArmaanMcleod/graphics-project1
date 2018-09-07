@@ -20,24 +20,39 @@ public class CameraControls : MonoBehaviour {
     private Vector2 currentRotation;
 
     // Minimum distance allowed from edge of terrain
-    public float reboundDistance = 60.0f;
+    public float reboundDistance;
 
     // Sensitivity of camera
-    public float sensitivity = 10.0f;
+    public float sensitivity;
 
     // Speed of camera
-    public float moveSpeed = 50.0f;
+    public float moveSpeed;
+
+    // Default rotation of camera 
+    public float defaultRotation;
+
+    // Terrain size
+    private float terrainSize;
 
     /// <summary>
     /// Used for initialisation of camera.
     /// </summary>
     private void Start () {
+
         // This locks the cursor to the centre of the screen
         Cursor.lockState = CursorLockMode.Locked;
 
-        // Start up location 
-        this.transform.position = new Vector3 (0.0f, 100.0f, 0.0f);
+        // Obtain terrain sizes
+        GameObject terrainObject = GameObject.Find ("Terrain");
+        Terrain terrain = terrainObject.GetComponent<Terrain> ();
+        terrainSize = terrain.terrainData.heightmapWidth;
+        float terrainHeight = terrain.terrainData.heightmapHeight;
 
+        // Start up location 
+        this.transform.position = new Vector3 (terrainSize / 2, terrainHeight, 0.0f);
+
+        // Rotate camera down to view terrain
+        currentRotation.y = defaultRotation;
     }
 
     /// <summary>
@@ -118,13 +133,6 @@ public class CameraControls : MonoBehaviour {
     /// Ensures camera stays within bounds of terrain.
     /// </summary>
     private void CheckBounds () {
-        // Get terrain object
-        GameObject terrainObject = GameObject.Find ("Terrain");
-        Terrain terrain = terrainObject.GetComponent<Terrain> ();
-
-        // Get terrain size
-        float terrainSize = terrain.terrainData.heightmapWidth - moveSpeed;
-
         // Copy current position
         Vector3 currentPostion = transform.position;
 
