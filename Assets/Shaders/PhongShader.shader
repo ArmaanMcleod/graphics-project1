@@ -134,6 +134,14 @@ Shader "Unlit/PhongShader"
                 float fAtt = 1;
                 float Kd = 0.7;
                 float3 L = normalize(_PointLightPosition - v.worldVertex.xyz);
+
+                // If the light is hitting from underneath the terrain only return the ambient 
+                // component
+                if(L.y<0){
+                    v.color.rgb = amb.rgb;
+                    return v.color;
+                }
+
                 float LdotN = dot(L, interpNormal);
                 float3 dif = fAtt * _PointLightColor.rgb * Kd * v.color.rgb * saturate(LdotN);
 
