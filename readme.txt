@@ -5,12 +5,12 @@ Diamond Square Terrain Generation:
 * Randomize corner points of array.
 * Complete diamond and square steps.
 * Repeated until random fractal landscape is created.
-* Chose 0.8 as a roughness factor.
+* Chose 0.8 as a roughness factor for the best results.
 
 Implementation Choices:
 * Used Unity Terrain object instead of mesh to hold terrain heights.
 * We represented the terrain textures based on terrain heights(dirt < grass < rock < snow).
-* We used Sphere/Terrain colliders to achieve collision detection.
+* We used Sphere/Terrain colliders and Rigid Bodies to achieve collision detection between the camera and terrain.
 * Inserted plane underneath terrain to hold water. 
 * Sphere object with halo used to create sun.
 
