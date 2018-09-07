@@ -38,6 +38,12 @@ public class CameraControls : MonoBehaviour {
     /// Used for initialisation of camera.
     /// </summary>
     private void Start () {
+        // Set default amera control parameters (these can be changed in the editor)
+        defaultRotation = 70f;
+        reboundDistance = 50f;
+        sensitivity = 1f;
+        moveSpeed = 50f;
+
         // This locks the cursor to the centre of the screen
         Cursor.lockState = CursorLockMode.Locked;
 
