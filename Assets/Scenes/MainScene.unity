@@ -397,7 +397,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   scale: 20
-  radiusRotation: 400
   radiusSpeed: 0.5
 --- !u!135 &1741490554
 SphereCollider:
