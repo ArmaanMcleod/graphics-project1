@@ -85,12 +85,12 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GrassHeight: 0
+    - _GrassHeight: 86.911736
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RockHeight: 0
+    - _RockHeight: 173.82347
     - _Shininess: 2.5
     - _SmoothnessTextureChannel: 0
     - _SnowHeight: 150
@@ -107,5 +107,5 @@ Material:
     - _EmiColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _PointLightColor: {r: 1, g: 0.9295865, b: 0, a: 1}
-    - _PointLightPosition: {r: -214.9801, g: -109.08902, b: 427.5993, a: 0}
+    - _PointLightPosition: {r: 39.454865, g: -432.23962, b: 427.5993, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
